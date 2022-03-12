@@ -1,0 +1,689 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+ *{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     text-decoration: none; 
+ }
+ html{
+     scroll-behavior: smooth;
+ }
+ .max-width{
+     max-width: 1300px;
+     padding: 0 80px;
+     margin: auto;
+ }
+ /* navbar styling */
+  .navbar{
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+      padding: 30px 0;
+      /* background: crimson; */
+      font-family: 'Ubuntu', sans-serif;
+      transition: all 0.3s ease;
+  }
+  .navbar.sticky{
+    padding: 15px 0;
+    background: crimson;
+      
+  }
+  .navbar .max-width{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  .navbar .logo a{
+      color: #fff;
+      font-size: 35px;
+      font-weight: 600;
+  }
+  .navbar .logo a span{
+      color: crimson;
+      transition: all 0.3s ease;
+  }
+  .navbar.sticky .logo a span{
+      color: #fff;
+  }
+  .navbar .menu li{
+      list-style: none;
+      display: inline-block;
+  }
+  .navbar .menu li a{
+      display: block;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      margin-left: 25px;
+      transition: color 0.3s ease;
+  }
+  .navbar .menu li a:hover{
+      color: crimson;
+  }
+  .navbar.sticky .menu li a:hover{
+    color: #fff;
+}
+/* menu button styling */
+.menu-btn{
+    color: #fff;
+    font-size: 23px;
+    cursor: pointer;
+    display: none;
+}
+.scroll-up-btn{
+    position: fixed;
+    height: 45px;
+    width: 42px;
+    background: crimson;
+    right: 30px;
+    bottom: 30px;
+    text-align: center;
+    line-height: 45px;
+    color: #fff;
+    z-index: 9999;
+    font-size: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.scroll-up-btn.show{
+    bottom: 30px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+  /* home section styling */
+  .home{
+      display: flex;
+      /* background: url(data:image/jpeg;base64,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) no-repeat center; */
+      background: url(img.jpg) no-repeat center;
+      background-size: cover;
+      height: 100vh;
+      color: #fff;
+      min-height: 100%;
+      min-width: 100%;
+      font-family: 'Ubuntu', sans-serif;
+  }
+  .home .max-width{
+      margin: auto 0 auto 40px;
+  }
+  .home .home-content .text-1{
+      font-size: 27px;
+  }
+  .home .home-content .text-2{
+      font-size: 72px;
+      font-weight: 600;
+      margin-left: -3px;
+  }
+  .home .home-content .text-3{
+      font-size: 40px;
+      margin: 5px 0;
+  }
+  .home .home-content .text-3 span{
+      color: crimson;
+      font-weight: 500;
+  }
+  
+  /* for hire me */
+  /* .home .home-content a{
+      display: inline-block;
+      background: crimson;
+      color: #fff;
+      font-size: 25px;
+      padding: 12px 36px;
+      margin-top: 20px;
+      border-radius: 6px;
+      border: 2px solid crimson;
+      transition: all 0.3s ease;
+  }
+  .home .home-content a:hover{
+      color: crimson;
+      background: none;
+  } */
+
+  /* all content similar styling code */
+section{
+    padding: 100px 0;
+}
+.about, .skills, .achievements, .projects, .contact, .footer{
+    font-family: 'Poppins', sans-serif;
+}
+.about .about-content,
+.skills .skills-content,
+.achievements .achievements-content,
+.contact .contact-content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+section .title{
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+section .title::before{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 20%; /*width changed for the width of the lines*/
+    height: 3px;
+    background: #111;
+    transform: translateX(-50%);
+}
+section .title::after{
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    font-size: 20px;
+    color: crimson;
+    padding: 5px;
+    background: #fff;
+    transform: translateX(-50%);
+}
+
+/* about section styling */
+/* section{
+    padding: 100px 0;
+} */
+/* .about, .skills, .projects{
+    font-family: 'Poppins', sans-serif;
+} */
+/* section .title{
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+section .title::before{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 180px;
+    height: 3px;
+    background: #111;
+    transform: translateX(-50%);
+}
+section .title::after{
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    font-size: 20px;
+    color: crimson;
+    padding: 5px;
+    background: #fff;
+    transform: translateX(-50%);
+} */
+.about .title::after{
+    content: "who I am";
+}
+
+/* .about .about-content,
+.skills .skills-content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+} */
+.about .about-content .left{
+    width: 45%;
+}
+.about .about-content .left img{
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.about .about-content .right{
+    width: 55%;
+}
+.about .about-content .right .text{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.about .about-content .right .text span{
+    color: crimson;
+}
+.about .about-content .right p{
+    text-align: justify;       
+}
+.about .about-content .right a{
+    display: inline-block;
+    background: crimson;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 1px 30px;
+    margin-top: 20px;
+    border-radius: 6px;
+    border: 2px solid crimson;
+    transition: all 0.3s ease;
+}
+.about .about-content .right a:hover{
+    color: crimson;
+    background: none;
+}
+ /* skill section styling */
+.skills, .projects{
+    color:#fff;
+    background: #111;
+}
+.skills .title::before{
+    background: #fff;
+}
+
+.skills .title::after{
+    background: #111;
+ content: "my hands on";
+}
+.skills .skills-content .card{
+    width: calc(33% - 20px);
+    background: #222;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.skills .skills-content .card:hover{
+    background: crimson;
+}
+.skills .skills-content .card .box{
+    transition: all 0.3s ease;
+}
+.skills .skills-content .card:hover .box{
+    transform: scale(1.05);
+}
+.skills .skills-content .card i{
+font-size: 50px;
+color: crimson;
+transition: color 0.3s ease;
+}
+.skills .skills-content .card:hover i{
+color: #fff;
+}
+.skills .skills-content .card .text{
+    font-size: 25px;
+    font-weight: 500;
+    margin: 10px 0 7px 0;
+}
+
+
+/* achievements section styling */
+.achievements .title::before{
+    background: black;  
+}
+.achievements .title::after{
+    content: "what I have bagged";
+}
+/* .achievements .achievements-content{
+     width: calc(50% - 30px);
+ } */
+/* .achievements .achievements-content .left .text{
+     font-size: 20px;
+     font-weight: 600;
+     margin-bottom: 10px;
+} */
+/* .achievements .achievements-content .left p{
+    text-align: justify;
+}
+.achievements .achievements-content .left a{
+    display: inline-block;
+    background: crimson;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 16px;
+    margin-top: 20px;
+    border-radius: 6px;
+    border: 2px solid crimson;
+    transition: all 0.3s ease;
+} */
+.achievements .achievements-content li:hover{
+    color:none;
+    background: rgba(248, 193, 204, 0.425);
+}
+.achievements .achievements-content span{
+    font-weight: 500;
+    font-size: 18px;
+    height: 2px;
+    width: 100%;
+	background: lightgray; 
+    position: relative;
+}
+
+.achievements .achievements-content ul{
+    height: 250px; /*height changed*/
+    width: 100%;
+    position: relative;
+}
+
+.achievements .achievements-content li{
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+
+/* project section styling */
+.projects .title::after{
+    content: "what I have cooked";
+    background: #111;
+}
+.projects .title::before{
+    background: #fff !important;
+}
+.projects .carousel .card{
+     background: #222;
+     border-radius: 6px;
+     padding: 25px 35px;
+     text-align: center;
+     transition: all 0.3s ease;
+}
+.projects .carousel .card:hover{
+    background: crimson;
+}
+.projects .carousel .card .box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.projects .carousel .card:hover .box{
+    transform: scale(1.05);
+}
+.projects .carousel .card .a{
+    font-size: 25px;
+    font-weight: 500;
+    margin: 10px 0 7px 0;
+    color: #fff;
+}
+.projects .carousel .card img{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid crimson;
+    transition: all 0.3s ease;
+}
+.projects .carousel .card:hover img{
+    border-color: #fff;
+}
+.owl-dots{
+    text-align: center;
+    margin-top: 20px;
+}
+.owl-dot{
+    height: 13px;
+    width: 13px;
+    margin: 0 5px;
+    outline: none!important;
+    border-radius: 50%;
+    border: 2px solid crimson!important;
+    transition: all 0.3s ease;
+}
+.owl-dot.active{
+    width: 35px;
+    border-radius: 14px;
+}
+.owl-dot.active,
+.owl-dot:hover{
+    background: crimson!important;
+}
+
+
+/* contact section styling */
+.contact .title::after{
+    content: "get in touch";
+}
+.contact .contact-content .column{
+    width: calc(50% - 30px);
+}
+.contact .contact-content .text{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.contact .contact-content .left p{
+    text-align: justify;
+}
+
+.contact .contact-content .left .icons{
+    margin: 10px 0;
+    
+}
+.contact .contact-content .row{
+    display: flex;
+    height: 65px;
+    align-items: center;
+}
+.contact .contact-content .row .info{
+    margin-left: 30px;
+}
+.contact .contact-content .row i{
+    font-size: 25px;
+    color: crimson;
+}
+.contact .contact-content .info .head{
+    font-weight: 500;
+}
+.contact .contact-content .info .sub-title{
+    color: #333;
+}
+.contact .right form .fields{
+    display: flex;
+}
+.contact .right form .field,
+.contact .right form .fields .field{
+    height: 45px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.contact .right form .textarea{
+    height: 80px;
+    width: 100%;
+}
+.contact .right form .name{
+    margin-right: 10px;
+}
+.contact .right form .email{
+    margin-left: 10px;
+}
+.contact .right form .field input,
+.contact .right form .textarea textarea{
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgrey;
+    border-radius: none;
+    padding: 0 15px;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+}
+.contact .right form .textarea textarea{
+    padding-top: 10px;
+    resize: none;
+}
+.contact .right form .button{
+    height: 47px;
+    width: 170px;
+}
+.contact .right form .button button{
+    width: 100%;
+    height: 100%;
+    border: 2px solid crimson;
+    background: crimson;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.contact .right form .button button:hover{
+    color: crimson;
+    background: none;
+}
+/* footer section styling */
+ /*footer{
+    background: #111;
+    padding: 20px 23px;
+    color:#fff;
+} */
+
+footer{
+	display: inline-block;
+	padding: 20px 23px;
+    background-color: #FFF;
+    color: white;
+	width:100%;
+}
+
+.fa{
+    font-size: 50px;
+
+}
+.footer-icons{
+	width:100%;
+	text-align:center;
+
+}
+/*footer class added*/
+.social-image{
+	margin-left: 20px;
+	height: 30px;
+	width: 30px;
+}
+
+
+  /* responsive media query start */
+  @media (max-width: 1300px){  
+        .home .max-width{
+            margin-left: 0px;
+        }
+  }
+  @media (max-width: 1104px){  
+    .about .about-content .left img{
+        height: 350px;
+        width: 350px;
+    }
+}
+  @media (max-width: 991px){  
+      .max-width{
+        padding: 0 50px;
+      }
+    }
+  @media (max-width: 947px){  
+    /* .max-width{
+        padding: 0 50px;
+    } */
+    .menu-btn{
+        display: block;
+        z-index: 999;
+    }
+    .menu-btn i.active:before{
+        content: "\f00d";
+    }
+    .navbar .menu{
+        position: fixed;
+        height: 100vh;
+         width: 100%;
+         left: -100%;
+         top: 0;
+        background: #111;
+        text-align: center;
+        padding-top: 80px;
+        transition: color 0.3s ease;
+    }
+    .navbar .menu.active{
+        left: 0;
+    }
+    .navbar .menu li{
+        display: block;
+    }
+    .navbar .menu li a{
+        display: inline-block;
+        margin: 20px;
+        font-size: 25px;
+    }
+    .home .home-content .text-2{
+        font-size: 70px;
+        
+    }
+    .home .home-content .text-3{
+        font-size: 35px;
+    }
+    .home .home-content a{
+        font-size: 23px;
+        padding: 10px 30px;
+    }
+    .max-width{
+        max-width: 800px;
+    }
+    .about .about-content .column{
+        width: 100%;
+    }
+    .about .about-content .left{
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 60px;
+    }
+    .about .about-content .right{
+        flex: 100%;
+    }
+    .skills .skills-content .card{
+        width: calc(50% - 10px);
+        margin-bottom: 20px;
+    }
+    .projects .projects-content .column,
+    .contact .contact-content .column{
+        width: 100%;
+        margin-bottom: 35px;
+    }
+  }
+  
+  @media (max-width: 690px){ 
+    .max-width{
+        padding: 0 23px;
+  }
+    .home .home-content .text-2{
+        font-size: 60px;
+        
+    }
+    .home .home-content .text-3{
+        font-size: 32px;
+    }
+    .home .home-content a{
+        font-size: 20px;
+        /* padding: 8px 20px; */
+    }
+    .skills .skills-content .card,
+    .achievements .achievements-content .column{
+        width: 100%;
+    }
+} 
+@media (max-width: 500px){ 
+    .home .home-content .text-2{
+        font-size: 50px;
+    }
+    .home .home-content .text-3{
+        font-size: 27px;
+    }
+}
+    /* .max-width{
+      padding: 0 50px;
+    }
+  } */
